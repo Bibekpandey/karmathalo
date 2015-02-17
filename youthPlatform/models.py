@@ -23,6 +23,10 @@ class Account(Person):
 class Qualification(models.Model):
     level = models.CharField(max_length = 20)
     field = models.CharField(max_length = 20)
+    
+    def __str__(self):
+        return self.level+'('+self.field+')'
+
 
 class Advertisement(models.Model):
     institutionName = models.CharField(max_length = 50)
@@ -39,6 +43,9 @@ class Advertisement(models.Model):
 
     def was_published_recently(self):
         return self.startDate >= timezone.Now() - datetime.timedelta(days=1)
+    
+    def __str__(self):
+        return self.institutionName
 
 class TrainingAd(Advertisement):
     duration = models.CharField(max_length = 40)
@@ -51,6 +58,12 @@ class JobAd(Advertisement):
     post = models.CharField(max_length = 50)
     givesTraining = models.BooleanField(default = False)
 
+
 class Idea(Person):
+    title = models.CharField(max_length = 150, default="title")
+    tags = models.CharField(max_length = 150, default="")
     isAnonymous = models.BooleanField(default = False)
     description = models.TextField()
+
+    def __str__(self):
+        return self.title
