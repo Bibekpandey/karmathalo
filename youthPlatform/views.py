@@ -1,4 +1,6 @@
 from django.shortcuts import render, HttpResponse
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.views.generic import View
 from django.contrib.sessions.backends.db import SessionStore
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -80,40 +82,54 @@ class Search(View):
 class Login(View):
     
     def get(self, request):
-        error = None
-        if request.session:
-            name = request.session.get('username','')
-        error = 'hi, ' + name
-        return render(request, 'youthPlatform/login.html', {'error':error})
+        return render(request, 'youthPlatform/login.html', {'error' : None})
 
     def post(self, request):
         error = None
-        if request.POST:
-            usrname = request.POST.get('username','')
-            pssword = request.POST.get('password','')
-            usertype = request.POST.get('type','')
+        usrname = request.POST.get('username','')
+        pssword = request.POST.get('password','')
+        usertype = request.POST.get('type','')
             
-            if usrname=='' or pssword=='':
-                error = "username/password can't be empty"
+        if usrname=='' or pssword=='':
+            error = "username/password can't be empty"
+            request.session['username'] = ''
+            return render(request, 'youthPlatform/login.html', {'error':error})
+
+        else:
+            user = Account.objects.filter(username=usrname, password=pssword)
+            if len(user)== 0:
+                error = 'username/password not valid'
+                request.session['username'] = ''
+                return render(request, 'youthPlatform/login.html', {'error':error})
             else:
-                user = Account.objects.filter(username=usrname, password=pssword)
-                if len(user)== 0:
-                    error = 'username/password not valid'
-                    request.session['username'] = ''
-                else:
-                    request.session['username'] = user[0].username
-                    error = 'congrats'
-            return render(request, 'youthPlatform/login.html', {'error':error, 'user' : request.session.get('username','')})
+                request.session['username'] = user[0].username
+                return HttpResponseRedirect(reverse('profile'))
 
 class Logout(View):
     def post(self,request):
         pass
 
     def get(self,request):
-        return HttpResponse('haha')
         if request.session:
             request.session['username'] = None
+        return render(request, 'youthPlatform/login.html', {'error':None})
 
-        error = 'hi, '
-        return render(request, 'youthPlatform/login.html', {'error':error})
-            
+class Profile(View):
+    
+    def get(self,request):
+        usrname = request.session.get('username',"")
+#        return HttpResponse("user profile")
+        return render(request, "youthPlatform/profile.html", {"username" : usrname})
+
+
+
+
+
+
+
+
+
+
+
+
+

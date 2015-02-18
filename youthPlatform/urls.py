@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from youthPlatform.views import Search, Login, Logout
+from youthPlatform.views import Search, Login, Logout, Profile
 from youthPlatform.models import * 
 
 urlpatterns = patterns('',
@@ -12,5 +12,6 @@ urlpatterns = patterns('',
     url(r'^ideas/', Search.as_view(model=Idea), name='searchidea'),
     url(r'^login/', Login.as_view(), name='login'),
     url(r'^logout/', Logout.as_view(), name='logout'),
+    url(r'^profile/', Profile.as_view(), name='profile'),
     
 )
