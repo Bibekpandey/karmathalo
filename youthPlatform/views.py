@@ -58,7 +58,7 @@ class Search(View):
             error = None
         context['error'] = error
 
-        return render(request, 'youthPlatform/search.html', context)
+        return render(request, 'youthPlatform/trainings.html', context)
 
 
     def paginate(self, results, request):
@@ -85,7 +85,7 @@ class Login(View):
         if request.session.get('username', ''):
             return HttpResponseRedirect(reverse('profile'))
         else:
-            return render(request, 'youthPlatform/login.html', {'error' : None})
+            return render(request, 'youthPlatform/Login.html', {'error' : None})
 
     def post(self, request):
         error = None
@@ -96,7 +96,7 @@ class Login(View):
         if usrname=='' or pssword=='':
             error = "username/password can't be empty"
             request.session['username'] = ''
-            return render(request, 'youthPlatform/login.html', {'error':error})
+            return render(request, 'youthPlatform/Login.html', {'error':error})
 
         else:
             user = Account.objects.filter(username=usrname, password=pssword)
@@ -115,7 +115,7 @@ class Logout(View):
     def get(self,request):
         if request.session:
             request.session['username'] = None
-        return render(request, 'youthPlatform/login.html', {'error':None})
+        return render(request, 'youthPlatform/Login.html', {'error':None})
 
 class Profile(View):
     
@@ -125,6 +125,9 @@ class Profile(View):
         return render(request, "youthPlatform/profile.html", {"username" : usrname})
 
 
+class Index(View):
+    def get(self, request):
+        return render(request, "youthPlatform/index.html", {})
 
 
 

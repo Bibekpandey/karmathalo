@@ -1,0 +1,79 @@
+.jumbotron 
+{
+	/*background-color: #18bc9c;*/
+	background-color:#1310ff;
+	min-height: 200px;
+	margin:0px;
+	margin-bottom:25px;
+	margin-left:80px;
+	margin-right:80px;	
+}
+
+.navbar
+{
+	border-radius:0px;
+}
+
+.boxes
+{
+	margin-top:-75px;
+}
+
+.brand
+{
+	color:#fff;;
+}
+
+a:hover
+{
+	text-decoration:none;
+	color:#fff;
+}
+
+.result
+{
+	color:#fff;
+}
+
+.searchbar
+{
+	max-height:50px;
+	float: right;
+	margin-bottom:20px;
+	margin-top:-21px;
+	background:#123;
+	padding:10px;
+	padding-bottom:10px;
+}
+
+.search-button
+{
+	background:#079b7b;
+	border:0px;
+	min-height:30px;
+	color:#125;
+}
+.search-button:hover
+{
+	background:#18bc9c;
+}
+
+.search-textbox
+{
+	background:#789;
+	border:0px;
+	min-height:30px;
+	color:#124	;
+}
+
+.search-header
+{
+	margin-top:0px;
+	text-align:center;
+}
+
+.greeting
+{	
+	color:#125;
+	padding-left:20px;
+}
