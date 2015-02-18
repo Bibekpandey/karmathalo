@@ -25,15 +25,27 @@ class Search(View):
             # just show the results, no need of any filters
             results = self.model.objects.order_by('-priority')
         else:
+            queryString = queryString.upper()
+            # split the query by space and comma
+            splitspace = queryString.split()
+            splitcomma = queryString.split(',')
+            splitted =  splitspace + splitcomma
             # match the querystring also
-            quals = Qualification.objects.filter(level=queryString.capitalize())
+            allquals = []
+            for x in splitted:
+                allquals += Qualification.objects.filter(Q(level__contains=x) | Q(field__contains=x))
+
             q = Q()
-            for x in quals:
+            for x in allquals:
                 q|=Q(qualification=x)
             
-            results = self.model.objects.filter(q)# |
-                    #Q(institutionLocation__contains=queryString) |
-                    #Q(institutionDistrict__contains=queryString) )
+            querylocation = Q()
+            for x in splitted:
+                querylocation |= (Q(institutionLocation__contains=x) | Q(institutionDistrict__contains=x))
+
+            results = self.model.objects.filter(q | querylocation)
+#                    Q(institutionLocation__contains=queryString) |
+#                    Q(institutionDistrict__contains=queryString) )
 
         # now pagination
         paginator = Paginator(results, 10) # show 10 per page
