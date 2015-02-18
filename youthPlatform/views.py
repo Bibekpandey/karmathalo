@@ -89,6 +89,9 @@ class Login(View):
 
     def post(self, request):
         error = None
+        if request.session['username']:
+            return HttpResponseRedirect(reverse("profile"))
+
         usrname = request.POST.get('username','')
         pssword = request.POST.get('password','')
         usertype = request.POST.get('type','')
