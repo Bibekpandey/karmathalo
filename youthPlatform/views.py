@@ -121,6 +121,8 @@ class Profile(View):
     
     def get(self,request):
         usrname = request.session.get('username',"")
+        if usrname is None:
+            return render(request, 'youthPlatform/login.html', {'error' : None})
 #        return HttpResponse("user profile")
         return render(request, "youthPlatform/profile.html", {"username" : usrname})
 
