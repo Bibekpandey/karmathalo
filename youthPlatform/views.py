@@ -82,7 +82,10 @@ class Search(View):
 class Login(View):
     
     def get(self, request):
-        return render(request, 'youthPlatform/login.html', {'error' : None})
+        if request.session.get('username', ''):
+            return HttpResponseRedirect(reverse('profile'))
+        else:
+            return render(request, 'youthPlatform/login.html', {'error' : None})
 
     def post(self, request):
         error = None
