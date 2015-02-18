@@ -1,0 +1,15 @@
+{% if error %}
+ {{ error }} <br>
+{% endif %}
+{% if user %}
+hi {{user}}
+{% endif %}
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+
+name:<input type="text" name="username" /><br>
+password:<input type="password" name="password" />
+<br>
+<input type="submit" value = "login" />
+</form>
+<a href="{% url 'logout' %}"> logout </a>

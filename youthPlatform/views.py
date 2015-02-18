@@ -1,14 +1,16 @@
 from django.shortcuts import render, HttpResponse
 from django.views.generic import View
+from django.contrib.sessions.backends.db import SessionStore
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
-from youthPlatform.models import JobAd, Qualification
+from youthPlatform.models import *
 
 # Create your views here.
-
+(IDEA, INVESTOR, PROVIDER) = range(1, 4)
 
 # our search result view, which is universally applicable for searching
 # all the things like jobs or trainings or ideas
+
 class Search(View):
     model = None
     def __init__(self, model):
@@ -44,10 +46,20 @@ class Search(View):
                 querylocation |= (Q(institutionLocation__contains=x) | Q(institutionDistrict__contains=x))
 
             results = self.model.objects.filter(q | querylocation)
-#                    Q(institutionLocation__contains=queryString) |
-#                    Q(institutionDistrict__contains=queryString) )
 
-        # now pagination
+
+        context = {}
+        context['results'] = self.paginate(results, request)
+        if len(context['results'])==0:
+            error = "no results found"
+        else:
+            error = None
+        context['error'] = error
+
+        return render(request, 'youthPlatform/search.html', context)
+
+
+    def paginate(self, results, request):
         paginator = Paginator(results, 10) # show 10 per page
         page = request.GET.get('page')
 
@@ -62,6 +74,28 @@ class Search(View):
         if len(result)==0:
             error = "No results found"
 
-        context = {'results':result, 'error':error}
-        return render(request, 'youthPlatform/search.html', context)
+        return result
 
+
+class Login(View):
+    
+    def get(self, request):
+        error = None
+        return render(request, 'youthPlatform/login.html', {'error':error})
+
+    def post(self, request):
+        error = None
+        if request.POST:
+            usrname = request.POST.get('username','')
+            pssword = request.POST.get('password','')
+            usertype = request.POST.get('type','')
+            
+            if usrname=='' or pssword=='':
+                error = "username/password can't be empty"
+            else:
+                user = Account.objects.filter(username=usrname, password=pssword)
+                if len(user)== 0:
+                    error = 'username/password not valid'
+                else:
+                    error = 'congrats'
+            return render(request, 'youthPlatform/login.html', {'error':error})

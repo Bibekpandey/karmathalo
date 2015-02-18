@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 import datetime
+from django.contrib.auth.models import AbstractBaseUser
 
 # our general person model
 class Person(models.Model):
@@ -17,9 +18,29 @@ class Person(models.Model):
 class Account(Person):
     username = models.CharField(max_length = 50)
     password = models.CharField(max_length = 50)
-    accountType = models.IntegerField(default=1)
+    accountType = models.CharField(max_length = 30)
     institution = models.CharField(max_length = 50)
 
+"""
+class UserAccount(AbstractBaseUser):
+    username = models.CharField(max_length = 30, null =False, unique=True)
+    firstname = models.CharField(max_length = 30, default="")
+    lastname = models.CharField(max_length = 30, default="")
+    address = models.CharField(max_length = 50, default="")
+    contact = models.CharField(max_length = 30, default="")
+    email = models.EmailField('email address', unique = True, null=False, default="")
+    joined = models.DateTimeField(auto_now_add = True, default=timezone.now)
+    is_active = models.BooleanField(default = True)
+
+# account type is integer field -> 1,2,3
+    acountType = models.IntegerField(default=0, null=False)
+    institution = models.CharField(max_length = 50, default = "", null=True)
+
+    USERNAME_FIELD = 'username'
+
+    def __str__(self):
+        return self.username
+"""
 
 class Qualification(models.Model):
     level = models.CharField(max_length = 20)
@@ -60,8 +81,7 @@ class JobAd(Advertisement):
     givesTraining = models.BooleanField(default = False)
 
 
-class Idea(models.Model):
-    account = models.ForeignKey(Account)
+class Idea(Person):
     title = models.CharField(max_length = 150, default="title")
     tags = models.CharField(max_length = 150, default="")
     isAnonymous = models.BooleanField(default = False)
