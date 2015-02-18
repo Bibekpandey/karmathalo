@@ -89,20 +89,20 @@ class Login(View):
 
     def post(self, request):
         error = None
+        if request.session.get('username',''):
+            return HttpResponseRedirect(reverse("profile"))
+
         usrname = request.POST.get('username','')
         pssword = request.POST.get('password','')
         usertype = request.POST.get('type','')
             
         if usrname=='' or pssword=='':
             error = "username/password can't be empty"
-            request.session['username'] = ''
-            return render(request, 'youthPlatform/Login.html', {'error':error})
-
+            return render(request, 'youthPlatform/login.html', {'error':error})
         else:
             user = Account.objects.filter(username=usrname, password=pssword)
             if len(user)== 0:
                 error = 'username/password not valid'
-                request.session['username'] = ''
                 return render(request, 'youthPlatform/login.html', {'error':error})
             else:
                 request.session['username'] = user[0].username
@@ -113,14 +113,16 @@ class Logout(View):
         pass
 
     def get(self,request):
-        if request.session:
-            request.session['username'] = None
-        return render(request, 'youthPlatform/Login.html', {'error':None})
+        if request.session.get('username',''):
+            del request.session['username']
+        return render(request, 'youthPlatform/login.html', {'error':None})
 
 class Profile(View):
     
     def get(self,request):
         usrname = request.session.get('username',"")
+        if not usrname or usrname is None:
+            return render(request, 'youthPlatform/login.html', {'error' : None})
 #        return HttpResponse("user profile")
         return render(request, "youthPlatform/profile.html", {"username" : usrname})
 
