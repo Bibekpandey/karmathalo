@@ -37,7 +37,7 @@ class Advertisement(models.Model):
     institutionWebsite = models.CharField(max_length = 50, blank = True)
     institutionEmail = models.CharField(max_length = 40)
     qualification = models.ManyToManyField(Qualification)
-    detail = models.TextField()
+    description = models.TextField()
     priority = models.IntegerField(default = 3)
     startDate = models.DateField(default = datetime.date.today)
     endDate = models.DateField()

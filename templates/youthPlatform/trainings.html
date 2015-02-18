@@ -53,7 +53,7 @@
             <div class="navbar searchbar">
                 <form method="get" action="{% url 'trainings' %}">
                     <input class="search-textbox" type="text" name="query" />
-                    <button class="search-button"><span class="glyphicon glyphicon-search"></span></button> <span class="greeting"> Hi 4343434bibek</span>
+                    <button class="search-button"><span class="glyphicon glyphicon-search"></span></button> <span class="greeting"> Hi bibek</span>
                 </form>
             </div>
         </div>
@@ -61,67 +61,78 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <h3 class="search-header">SEARCH results for Pig Farming</h3> 
+            <h3 class="search-header">{{heading}}</h3> 
         </div>
         <div class="col-md-2"></div>
     </div>
 
-	<div class="jumbotron result">
-		<div class="row">
-			<div class="col-md-3"> </div>
-			<div class="col-md-6 text-center heading">
-				<h3> WE TRAIN AND FUND YOUR IDEAS.  WE TRAIN AND FUND YOUR IDEAS. WE TRAIN AND FUND YOUR IDEAS.</h3>
-			</div>
-			<div class="col-md-3"> </div>
+<br/>
 
-		</div>
-	</div>
-	  
-	<div class="jumbotron result">
-		<div class="row">
-			<div class="col-md-3"> </div>
-			<div class="col-md-6 text-center heading">
-				<h3> WE TRAIN AND FUND YOUR IDEAS.  WE TRAIN AND FUND YOUR IDEAS. WE TRAIN AND FUND YOUR IDEAS.</h3>
-			</div>
-			<div class="col-md-3"> </div>
+{% if error %}
+<span class="message"><h2>{{error}}!!</h2></span><br/>
+{% else %}
 
-		</div>
-	</div>
+<section id="portfolio">
+        <div class="container boxes">
+                <div class="row">
+                    {% for x in results %}
+                     <div class="col-sm-4 portfolio-item">
+                      <a href="">
+                      <button class="search-button result">
+                        <span class="result-title"><h4>{{x.institutionName}}</h4></span><br>
+                        <span class="result-short"><h6>{{x.institutionDistrict}}</h6></span>
+                     </button>
+                     </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
 
-	<div class="jumbotron result">
-		<div class="row">
-			<div class="col-md-3"> </div>
-			<div class="col-md-6 text-center heading">
-				<h3> WE TRAIN AND FUND YOUR IDEAS.  WE TRAIN AND FUND YOUR IDEAS. WE TRAIN AND FUND YOUR IDEAS.</h3>
-			</div>
-			<div class="col-md-3"> </div>
+            <!-- pagination -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3">
+                    {% ifequal type "trainings" %}
+                    {% if results.has_previous %}
+                        <a href="{% url 'trainings' %}?page={{results.previous_page_number}}" class="paginator">Previous</a>
+                    {% endif %}
+                    </div>
+                    <div class="col-sm-6"></div>
+                    <div class="col-sm-3">
+                    {% if results.has_next %}
+                        <a href="{% url 'trainings' %}?page={{results.next_page_number}}" class="paginator">Next</a>
+                    {% endif %}
+                    {% endifequal %}
+                    
+                    {% ifequal type "ideas" %}
+                    {% if results.has_previous %}
+                        <a href="{% url 'ideas' %}?page={{results.previous_page_number}}" class="paginator">Previous</a>
+                    {% endif %}
+                    </div>
+                    <div class="col-sm-6"></div>
+                    <div class="col-sm-3">
+                    {% if results.has_next%}
+                        <a href="{% url 'ideas' %}?page={{results.next_page_number}}" class="paginator">Next</a>
+                    {% endif %}
+                    {% endifequal %}
+                    
+                    {% ifequal type "jobs" %}
+                    {% if results.has_previous %}
+                        <a href="{% url 'jobs' %}?page={{results.previous_page_number}}" class="paginator">Previous</a>
+                    {% endif %}
+                    </div>
+                    <div class="col-sm-6"></div>
+                    <div class="col-sm-3">
+                    {% if results.has_next%}
+                        <a href="{% url 'jobs' %}?page={{results.next_page_number}}" class="paginator">Next</a>
+                    {% endif %}
+                    {% endifequal %}
 
-		</div>
-	</div>
-  	
-	<div class="jumbotron result">
-		<div class="row">
-			<div class="col-md-3"> </div>
-			<div class="col-md-6 text-center heading">
-				<h3> WE TRAIN AND FUND YOUR IDEAS.  WE TRAIN AND FUND YOUR IDEAS. WE TRAIN AND FUND YOUR IDEAS.</h3>
-			</div>
-			<div class="col-md-3"> </div>
 
-		</div>
-	</div>
-  	
-	<div class="jumbotron result">
-		<div class="row">
-			<div class="col-md-3"> </div>
-			<div class="col-md-6 text-center heading">
-				<h3> WE TRAIN AND FUND YOUR IDEAS.  WE TRAIN AND FUND YOUR IDEAS. WE TRAIN AND FUND YOUR IDEAS.</h3>
-			</div>
-			<div class="col-md-3"> </div>
+                    </div>
+                </div>
+            </div>
+{% endif %}
 
-		</div>
-	</div>
-    
-
-</div>
 </body>
 </html>

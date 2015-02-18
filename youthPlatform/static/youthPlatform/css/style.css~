@@ -38,6 +38,7 @@ a:hover
 .searchbar
 {
 	max-height:50px;
+	float: right;
 	margin-bottom:20px;
 	margin-top:-21px;
 	background:#123;
@@ -47,14 +48,14 @@ a:hover
 
 .search-button
 {
-	background:#079b7b;
+	background:#05795a;
 	border:0px;
 	min-height:30px;
 	color:#125;
 }
 .search-button:hover
 {
-	background:#18bc9c;
+	background:#079b7b;
 }
 
 .search-textbox
@@ -73,6 +74,28 @@ a:hover
 
 .greeting
 {	
-	color:#125;
+	color:#fff;
 	padding-left:20px;
+}
+
+.result
+{
+	height:150px;
+	width:100%;
+	color:#fff;
+}
+.result-title
+{
+	color:#fff;
+}
+
+.paginator
+{
+	text-decoration:bold;
+	color:#124;
+}
+
+.message
+{
+	text-align:center;
 }

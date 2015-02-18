@@ -15,9 +15,10 @@ from youthPlatform.models import *
 
 class Search(View):
     model = None
-    def __init__(self, model):
-        model = model
+    searchtype = None
+    def __init__(self, model, searchtype):
         self.model = model
+        self.searchtype = searchtype
 
     def get(self, request):
         try:
@@ -26,9 +27,11 @@ class Search(View):
             queryString = None
 
         if queryString==None:
+            heading = "All results"
             # just show the results, no need of any filters
             results = self.model.objects.order_by('-priority')
         else:
+            heading = "Search result for '" + queryString + "'"
             queryString = queryString.upper()
             # split the query by space and comma
             splitspace = queryString.split()
@@ -45,12 +48,15 @@ class Search(View):
             
             querylocation = Q()
             for x in splitted:
-                querylocation |= (Q(institutionLocation__contains=x) | Q(institutionDistrict__contains=x))
+                querylocation |= (Q(institutionLocation__contains=x) | Q(institutionDistrict__contains=x) |
+                    Q(description__contains=x))
 
             results = self.model.objects.filter(q | querylocation)
 
 
         context = {}
+        context['heading'] = heading
+        context['type'] = self.searchtype
         context['results'] = self.paginate(results, request)
         if len(context['results'])==0:
             error = "no results found"
@@ -62,7 +68,7 @@ class Search(View):
 
 
     def paginate(self, results, request):
-        paginator = Paginator(results, 10) # show 10 per page
+        paginator = Paginator(results, 1) # show 6 per page
         page = request.GET.get('page')
 
         try:
@@ -130,14 +136,3 @@ class Profile(View):
 class Index(View):
     def get(self, request):
         return render(request, "youthPlatform/index.html", {})
-
-
-
-
-
-
-
-
-
-
-
