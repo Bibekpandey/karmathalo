@@ -1,12 +1,17 @@
 .jumbotron 
 {
 	/*background-color: #18bc9c;*/
-	background-color:#1310ff;
+	background-color:#fff;
 	min-height: 200px;
 	margin:0px;
 	margin-bottom:25px;
 	margin-left:80px;
 	margin-right:80px;	
+}
+.heading 
+{
+	background-color:#fff;
+	color:#124;
 }
 
 .navbar
@@ -70,6 +75,7 @@ a:hover
 {
 	margin-top:0px;
 	text-align:center;
+	color:#124;
 }
 
 .greeting
@@ -98,4 +104,11 @@ a:hover
 .message
 {
 	text-align:center;
+}
+
+.index
+{
+	height:250px;
+	width:100%;
+	color:#fff;
 }

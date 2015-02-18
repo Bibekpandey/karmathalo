@@ -27,31 +27,29 @@ class Search(View):
             queryString = None
 
         if queryString==None:
-            heading = "All results"
+            heading = "All results for " + self.searchtype
             # just show the results, no need of any filters
-            results = self.model.objects.order_by('-priority')
+            results = self.model.objects.all()
         else:
-            heading = "Search result for '" + queryString + "'"
+            heading = self.searchtype.capitalize()+" search result for '" + queryString + "'"
             queryString = queryString.upper()
             # split the query by space and comma
             splitspace = queryString.split()
             splitcomma = queryString.split(',')
             splitted =  splitspace + splitcomma
             # match the querystring also
-            allquals = []
-            for x in splitted:
-                allquals += Qualification.objects.filter(Q(level__contains=x) | Q(field__contains=x))
-
-            q = Q()
-            for x in allquals:
-                q|=Q(qualification=x)
             
-            querylocation = Q()
-            for x in splitted:
-                querylocation |= (Q(institutionLocation__contains=x) | Q(institutionDistrict__contains=x) |
-                    Q(description__contains=x))
+            query= Q()
+            if self.searchtype=="trainings":
+                for x in splitted:
+                    query|= (Q(institutionName__contains=x) |
+                     Q(description__contains=x))
+            elif self.searchtype=="ideas":
+                for x in splitted:
+                    query |= (Q(title__contains=x) |
+                        Q(description__contains=x))
 
-            results = self.model.objects.filter(q | querylocation)
+            results = self.model.objects.filter(query)
 
 
         context = {}
@@ -64,11 +62,11 @@ class Search(View):
             error = None
         context['error'] = error
 
-        return render(request, 'youthPlatform/trainings.html', context)
+        return render(request, 'youthPlatform/searchresults.html', context)
 
 
     def paginate(self, results, request):
-        paginator = Paginator(results, 1) # show 6 per page
+        paginator = Paginator(results, 6) # show 6 per page
         page = request.GET.get('page')
 
         try:
@@ -136,3 +134,25 @@ class Profile(View):
 class Index(View):
     def get(self, request):
         return render(request, "youthPlatform/index.html", {})
+
+class PostIdea(View):
+    def get(self, request):
+        return render(request, "youthPlatform/ideas.html", {}) 
+    def post(self, request):
+        tit = request.POST.get('title','')
+        descript = request.POST.get('description', '')
+        usr = Account.objects.filter(username="be")
+        idea = Idea(account=usr[0], title=tit, description=descript)
+        idea.save()
+        return HttpResponseRedirect(reverse('ideas'))
+
+class PostTraining(View):
+    def get(self, request):
+        return render(request, "youthPlatform/posttraining.html",{})
+
+    def post(self, request):
+        instName = request.POST.get('institution', 'yubasamstha')
+        descript = request.POST.get('description', ' ')
+        trainad = TrainingAd(institutionName=instName, description=descript)
+        trainad.save()
+        return HttpResponseRedirect(reverse('trainings'))

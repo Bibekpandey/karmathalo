@@ -41,7 +41,7 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
                 
-                <h1><a class="brand" href="#page-top">KARMATHALO</a></h1>
+                <h1><a class="brand" href="{% url 'index' %}">KARMATHALO</a></h1>
             </div>
 
         </div>
@@ -52,10 +52,10 @@
   	<div class="jumbotron">
 		<div class="row">
 			<div class="col-md-2"> </div>
-			<div class="col-md-8	 text-center heading">
+			<div class="col-md-8 text-center heading">
 				<h3> WE TRAIN AND FUND YOUR IDEAS.  WE TRAIN AND FUND YOUR IDEAS. WE TRAIN AND FUND YOUR IDEAS.</h3>
 			</div>
-			<div class="col-md-2	"> </div>
+			<div class="col-md-2"> </div>
 
 		</div>
 	</div>
@@ -65,15 +65,39 @@
     <!-- Portfolio Grid Section -->
     <section id="portfolio">
         <div class="container boxes">
-            <!-- <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Portfolio</h2>
-                    <hr class="star-primary">
-                </div>
-            </div> -->
+
             <div class="row">
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+                <div class="col-sm-3 portfolio-item">
+                    <a href="{% url 'trainings' %}">
+                    <button class="search-button index">
+                        <span class="result-title"><h3>Looking for<br> training</span>
+                    </button>
+                    </a>
+                </div>
+                <div class="col-sm-3 portfolio-item">
+                    <a href="{% url 'postidea' %}">
+                    <button class="search-button index">
+                        <span class="result-title"><h3>I want investors<br>for my idea</span>
+                    </button>
+                    </a>
+                </div>
+                <div class="col-sm-3 portfolio-item">
+                    <a href="{% url 'ideas' %}">
+                    <button class="search-button index">
+                        <span class="result-title"><h3>I want to invest<br>on good ideas</span>
+                    </button>
+                    </a>
+                </div>
+                <div class="col-sm-3 portfolio-item">
+                    <a href="{% url 'posttraining' %}">
+                    <button class="search-button index">
+                        <span class="result-title"><h3>I have got<br>trainings</span>
+                    </button>
+                    </a>
+                </div>
+
+
+
                         <div class="caption">
                             <div class="caption-content">
                                 <i class="fa fa-search-plus fa-3x"></i>

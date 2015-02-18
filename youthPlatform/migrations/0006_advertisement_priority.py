@@ -7,13 +7,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('youthPlatform', '0002_auto_20150218_0445'),
+        ('youthPlatform', '0005_auto_20150218_2003'),
     ]
 
     operations = [
-        migrations.RenameField(
+        migrations.AddField(
             model_name='advertisement',
-            old_name='detail',
-            new_name='description',
+            name='priority',
+            field=models.IntegerField(default=3),
+            preserve_default=True,
         ),
     ]

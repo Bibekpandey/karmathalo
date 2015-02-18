@@ -21,26 +21,10 @@ class Account(Person):
     institution = models.CharField(max_length = 50)
 
 
-class Qualification(models.Model):
-    level = models.CharField(max_length = 20)
-    field = models.CharField(max_length = 20)
-    
-    def __str__(self):
-        return self.level+'('+self.field+')'
-
 
 class Advertisement(models.Model):
     institutionName = models.CharField(max_length = 50)
-    institutionDistrict = models.CharField(max_length = 20)
-    institutionLocation = models.CharField(max_length = 30)
-    institutionContact = models.CharField(max_length = 30)
-    institutionWebsite = models.CharField(max_length = 50, blank = True)
-    institutionEmail = models.CharField(max_length = 40)
-    qualification = models.ManyToManyField(Qualification)
     description = models.TextField()
-    priority = models.IntegerField(default = 3)
-    startDate = models.DateField(default = datetime.date.today)
-    endDate = models.DateField()
 
     def was_published_recently(self):
         return self.startDate >= timezone.Now() - datetime.timedelta(days=1)
@@ -49,8 +33,8 @@ class Advertisement(models.Model):
         return self.institutionName
 
 class TrainingAd(Advertisement):
-    duration = models.CharField(max_length = 40)
-    cost = models.IntegerField()
+    duration = models.CharField(max_length = 40, default="3 months")
+    cost = models.IntegerField(default = 1000)
     givesJob = models.BooleanField(default = False)
 
 class JobAd(Advertisement):

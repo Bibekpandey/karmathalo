@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Trainings</title>
+    <title>{{type}}</title>
 
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
     <link href="{% static 'youthPlatform/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -40,7 +40,7 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
                 
-                <h1><a class="brand" href="#page-top">KARMATHALO</a></h1>
+                <h1><a class="brand" href="{% url 'index' %}">KARMATHALO</a></h1>
             </div>
 
             
@@ -51,9 +51,18 @@
     <div class="row">
         <div class="col-md-12">
             <div class="navbar searchbar">
+            {% ifequal type "trainings" %}
                 <form method="get" action="{% url 'trainings' %}">
+            {% endifequal %}
+            {% ifequal type "ideas" %}
+                <form method="get" action="{% url 'ideas' %}">
+            {% endifequal %}
+            {% ifequal type "jobs" %}
+                <form method="get" action="{% url 'jobs' %}">
+            {% endifequal %}
+
                     <input class="search-textbox" type="text" name="query" />
-                    <button class="search-button"><span class="glyphicon glyphicon-search"></span></button> <span class="greeting"> Hi bibek</span>
+                    <button class="search-button"><span class="glyphicon glyphicon-search"></span></button> <span class="greeting"> </span>
                 </form>
             </div>
         </div>
@@ -69,7 +78,7 @@
 <br/>
 
 {% if error %}
-<span class="message"><h2>{{error}}!!</h2></span><br/>
+<span class="message"><h2>{{error}}</span><br/>
 {% else %}
 
 <section id="portfolio">
@@ -79,8 +88,13 @@
                      <div class="col-sm-4 portfolio-item">
                       <a href="">
                       <button class="search-button result">
+                        {% ifequal type "trainings" %}
                         <span class="result-title"><h4>{{x.institutionName}}</h4></span><br>
-                        <span class="result-short"><h6>{{x.institutionDistrict}}</h6></span>
+                        {% endifequal %}
+                        {% ifequal type "ideas" %}
+                        <span class="result-title"><h4>{{x.title}}</h4></span><br>
+                        {% endifequal %}
+                        <span class="result-short"><h6>{{x.description}}<h6></span>
                      </button>
                      </a>
                     </div>

@@ -11,10 +11,8 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='account',
-            name='accountType',
-            field=models.IntegerField(default=1),
-            preserve_default=True,
+        migrations.RemoveField(
+            model_name='idea',
+            name='account',
         ),
     ]

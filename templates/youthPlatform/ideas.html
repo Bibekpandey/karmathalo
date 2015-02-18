@@ -10,11 +10,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Karmathalo - Login</title>
+    <title>Ideas</title>
 
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
-    <link type="text/css" href="{% static 'youthPlatform/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link type="text/css" href="{% static 'youthPlatform/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'youthPlatform/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'youthPlatform/css/style.css' %}" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="{% static 'youthPlatform/css/freelancer.css' %}" rel="stylesheet">
@@ -47,34 +47,31 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-	
-
- <!-- signup Section --> 
-	<div class="container">
+<div class="container">
 		<div class="row">
 		 <div class="col-md-6">
     <section id="contact">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Login</h2>
+                    <h2>Post Idea</h2>
                 </div>
                 <div class="col-lg-8 col-lg-offset-2">
                     <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
                     <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                    <form name="sentMessage" id="contactForm" method="post" action="{% url 'login' %}"  novalidate>
+                    <form name="sentMessage" id="contactForm" method="post" action="{% url 'postidea' %}"  novalidate>
                     {% csrf_token %}
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Name</label>
-                                <input type="text" class="form-control" placeholder="username" name="username" id="name" required data-validation-required-message="Please enter your name.">
+                                <label>Title</label>
+                                <input type="text" class="form-control" placeholder="title" name="title" id="name" required data-validation-required-message="Please enter your title.">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Password</label>
-                                <input type="password" class="form-control" placeholder="password" id="password" name="password" required data-validation-required-message="Please enter your password.">
+                                <label>Description</label>
+                                <input type="textarea" class="form-control" placeholder="description" id="password" name="description" required data-validation-required-message="Please enter your password.">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
@@ -93,7 +90,7 @@
                         <div id="success"></div>
                         <div class="row text-center">
                             <div class="form-group col-xs-12">
-                                <button type="submit" class="btn btn-success btn-lg">Login</button>
+                                <button type="submit" class="btn btn-success btn-lg">Post Idea</button>
                             </div>
                         </div>
                     </form>
@@ -102,12 +99,6 @@
         </div>
     </section>
 	</div>
-</div>
-<div class="row">
-	<div class="col-md-6">
-	
-	</div>
-</div>
-</div>
+
 </body>
 </html>
