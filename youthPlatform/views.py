@@ -81,6 +81,9 @@ class Login(View):
     
     def get(self, request):
         error = None
+        if request.session:
+            name = request.session.get('username','')
+        error = 'hi, ' + name
         return render(request, 'youthPlatform/login.html', {'error':error})
 
     def post(self, request):
@@ -96,6 +99,21 @@ class Login(View):
                 user = Account.objects.filter(username=usrname, password=pssword)
                 if len(user)== 0:
                     error = 'username/password not valid'
+                    request.session['username'] = ''
                 else:
+                    request.session['username'] = user[0].username
                     error = 'congrats'
-            return render(request, 'youthPlatform/login.html', {'error':error})
+            return render(request, 'youthPlatform/login.html', {'error':error, 'user' : request.session.get('username','')})
+
+class Logout(View):
+    def post(self,request):
+        pass
+
+    def get(self,request):
+        return HttpResponse('haha')
+        if request.session:
+            request.session['username'] = None
+
+        error = 'hi, '
+        return render(request, 'youthPlatform/login.html', {'error':error})
+            
