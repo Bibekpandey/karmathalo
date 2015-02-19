@@ -93,44 +93,6 @@
     </section>
 </div></div></div>
 
-<footer class="text-center bottombox">
-        <div class="footer-above">
-            <div class="container">
-                <div class="row">
-                    <div class="footer-col col-md-4">
-                        <h3>Location</h3>
-                        <p>Patandhoka<br>Lalitpur, Nepal</p>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3>Around the Web</h3>
-                        <ul class="list-inline">
-                            <li>
-                                <a href="#" >facebook</a>
-                            </li>
-                            <li>
-                                <a href="#" >twitter</a>
-                            </li>
-
-                        </ul>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3>About The Lucifers</h3>
-                        <p>It is a team of three: <a>Prasanna</a> as designer and <a>Bibek</a> and <a>Nishan</a> as developers.</p>
-                    </div>
-                </div>
-           </div>
-        </div>
-        <div class="footer-below">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        Copyright &copy; The Lucifers 2015
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-
+</div>
 </body>
 </html>

@@ -78,10 +78,10 @@
 <br/>
 
 {% if error %}
-<span class="message"><h2>{{error}}</span><br/>
+<span class="message"><h2 style="color:#124">{{error}}!!</span><br/>
 {% else %}
 <br><br>
-<section id="portfolio">
+<section id="portfolio" style="min-height:300px">
         <div class="container boxes">
                 <div class="row">
                     {% for x in results %}
@@ -147,7 +147,18 @@
             </div>
 </section>
 {% endif %}
-
+<footer>
+<div class="footer-below">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        Copyright &copy; The Lucifers 2015
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</footer>
 
 </body>
 </html>
