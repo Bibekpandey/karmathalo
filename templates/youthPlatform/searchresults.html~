@@ -78,7 +78,7 @@
 <br/>
 
 {% if error %}
-<span class="message"><h2 style="color:#124">{{error}}!!</span><br/>
+<span class="message"><h2>{{error}}</span><br/>
 {% else %}
 <br><br>
 <section id="portfolio">
